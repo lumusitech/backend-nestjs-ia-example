@@ -21,7 +21,7 @@ export const orthographyCheckUseCase = async (
       {
         role: 'system',
         content: `
-          Te serán proveídos textos en español con posibles errores ortográficos y gramaticales.
+          Te serán proveídos textos en español con posibles errores ortográficos y gramaticales (no olvides revisar las tildes en cada palabra que la requiera).
           Las palabras usadas deben de existir en el diccionario de la Real Academia Española.
           Debes de responder en formato JSON, tu tarea es corregirlos y retornar información de las solicitudes, 
           también debes enviar un porcentaje de acierto por el usuario. 
