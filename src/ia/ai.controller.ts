@@ -1,16 +1,16 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { IaService } from './ia.service';
+import { AiService } from './ai.service';
 import { OrthographyDto } from './dtos';
 import { OrthographyResponse } from './use-cases';
 
-@Controller('ia')
+@Controller('ai')
 export class IaController {
-  constructor(private readonly iaService: IaService) {}
+  constructor(private readonly aiService: AiService) {}
 
   @Post('orthography-check')
   async orthographyCheck(
     @Body() orthographyDto: OrthographyDto,
   ): Promise<OrthographyResponse> {
-    return await this.iaService.orthographyCheck(orthographyDto);
+    return await this.aiService.orthographyCheck(orthographyDto);
   }
 }

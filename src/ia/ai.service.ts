@@ -4,7 +4,7 @@ import { OrthographyDto } from './dtos';
 import OpenAI from 'openai';
 
 @Injectable()
-export class IaService {
+export class AiService {
   private openai: OpenAI = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
