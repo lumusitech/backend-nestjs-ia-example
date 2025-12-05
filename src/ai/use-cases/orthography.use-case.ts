@@ -16,7 +16,7 @@ export const orthographyCheckUseCase = async (
 ): Promise<OrthographyResponse> => {
   const { prompt } = options;
 
-  const completion = openai.chat.completions.create({
+  const completion = await openai.chat.completions.create({
     messages: [
       {
         role: 'system',
@@ -50,7 +50,7 @@ export const orthographyCheckUseCase = async (
   });
 
   const jsonResp = JSON.parse(
-    (await completion).choices[0].message.content ?? '{}',
+    completion.choices[0].message.content ?? '{}',
   ) as OrthographyResponse;
 
   return jsonResp;
