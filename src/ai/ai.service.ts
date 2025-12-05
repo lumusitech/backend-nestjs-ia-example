@@ -6,6 +6,7 @@ import {
 } from './use-cases';
 import { OrthographyDto, ProsConsDiscussesDto } from './dtos';
 import OpenAI from 'openai';
+import { prosConsDiscussesStreamUseCase } from './use-cases/pros-cons-discusses-stream.use-case';
 
 @Injectable()
 export class AiService {
@@ -23,5 +24,9 @@ export class AiService {
 
   async prosConsDiscusses({ prompt }: ProsConsDiscussesDto) {
     return await prosConsDiscussesUseCase(this.openai, { prompt });
+  }
+
+  async prosConsDiscussesStream({ prompt }: ProsConsDiscussesDto) {
+    return await prosConsDiscussesStreamUseCase(this.openai, { prompt });
   }
 }
