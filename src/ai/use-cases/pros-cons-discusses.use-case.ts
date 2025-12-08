@@ -22,7 +22,7 @@ export const prosConsDiscussesUseCase = async (
 
           Ejemplo de salida:
 
-          **Objeto 1:**
+          **Objeto 1:**\n
           **Pros:**
           1. Pro 1
           2. Pro 2
@@ -32,7 +32,7 @@ export const prosConsDiscussesUseCase = async (
           2. Contra 2
           3. Contra 3
           ---
-          **Objeto 2:**
+          **Objeto 2:**\n
           **Pros:**
           1. Pro 1
           2. Pro 2
