@@ -16,8 +16,34 @@ export const prosConsDiscussesUseCase = async (
         role: 'system',
         content: `
           Se te dará una pregunta y tu tarea es dar una respuesta con pros y contras,
-          la respuesta debe de ser en formato markdown,
+          la respuesta debe de ser en formato markdown bien estructurada
+          evitando saltos de lineas innecesarios y manteniendo un formato claro y ordenado,
           los pros y contras deben de estar en una lista,
+
+          Ejemplo de salida:
+
+          **Objeto 1:**
+          **Pros:**
+          1. Pro 1
+          2. Pro 2
+          3. Pro 3
+          **Contras:**
+          1. Contra 1
+          2. Contra 2
+          3. Contra 3
+          ---
+          **Objeto 2:**
+          **Pros:**
+          1. Pro 1
+          2. Pro 2
+          3. Pro 3
+          **Contras:**
+          1. Contra 1
+          2. Contra 2
+          3. Contra 3
+          ---
+          **Consejo:**
+          Explicar en qué situaciones es mejor usar cada objeto.
           `,
       },
       {
