@@ -1,6 +1,6 @@
 import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { AiService } from './ai.service';
-import { OrthographyDto, ProsConsDiscussesDto } from './dtos';
+import { OrthographyDto, ProsConsDiscussesDto, TranslateDto } from './dtos';
 import { OrthographyResponse } from './use-cases';
 import { Response } from 'express';
 
@@ -38,5 +38,10 @@ export class AiController {
     }
 
     response.end();
+  }
+
+  @Post('translate')
+  async translate(@Body() translateDto: TranslateDto) {
+    return await this.aiService.translate(translateDto);
   }
 }
