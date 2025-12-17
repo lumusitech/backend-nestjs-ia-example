@@ -5,7 +5,7 @@ import { OrthographyResponse } from './use-cases';
 import { Response } from 'express';
 
 @Controller('ai')
-export class IaController {
+export class AiController {
   constructor(private readonly aiService: AiService) {}
 
   @Post('orthography-check')

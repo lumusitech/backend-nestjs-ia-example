@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { IaModule } from './ai/ai.module';
+import { AiModule } from './ai/ai.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), IaModule],
+  imports: [ConfigModule.forRoot(), AiModule],
   controllers: [],
   providers: [],
 })
