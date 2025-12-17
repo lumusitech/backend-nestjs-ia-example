@@ -3,8 +3,9 @@ import {
   orthographyCheckUseCase,
   OrthographyResponse,
   prosConsDiscussesUseCase,
+  translateUseCase,
 } from './use-cases';
-import { OrthographyDto, ProsConsDiscussesDto } from './dtos';
+import { OrthographyDto, ProsConsDiscussesDto, TranslateDto } from './dtos';
 import OpenAI from 'openai';
 import { prosConsDiscussesStreamUseCase } from './use-cases/pros-cons-discusses-stream.use-case';
 
@@ -28,5 +29,9 @@ export class AiService {
 
   async prosConsDiscussesStream({ prompt }: ProsConsDiscussesDto) {
     return await prosConsDiscussesStreamUseCase(this.openai, { prompt });
+  }
+
+  async translate({ prompt, lang }: TranslateDto) {
+    return await translateUseCase(this.openai, { prompt, lang });
   }
 }
