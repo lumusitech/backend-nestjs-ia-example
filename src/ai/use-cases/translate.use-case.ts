@@ -5,6 +5,10 @@ interface Options {
   lang: string;
 }
 
+export interface TranslateResponse {
+  message: string | null;
+}
+
 export const translateUseCase = async (openai: OpenAI, options: Options) => {
   const { prompt, lang } = options;
 
@@ -30,5 +34,5 @@ export const translateUseCase = async (openai: OpenAI, options: Options) => {
     // },
   });
 
-  return completion.choices[0].message;
+  return { message: completion.choices[0].message.content };
 };
