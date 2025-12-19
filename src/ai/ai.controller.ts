@@ -44,4 +44,6 @@ export class AiController {
   async translate(@Body() translateDto: TranslateDto) {
     return await this.aiService.translate(translateDto);
   }
+
+  //? OPTIONAL: Add a route to stream the translation like the prosConsDiscussesStream route
 }
