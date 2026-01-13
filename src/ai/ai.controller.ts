@@ -1,8 +1,25 @@
-import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
-import { AiService } from './ai.service';
-import { OrthographyDto, ProsConsDiscussesDto, TranslateDto } from './dtos';
+import type { Response } from 'express';
+
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Res,
+} from '@nestjs/common';
+
+import {
+  OrthographyDto,
+  ProsConsDiscussesDto,
+  TranslateDto,
+  TextToAudioDto,
+} from './dtos';
+
 import { OrthographyResponse } from './use-cases';
-import { Response } from 'express';
+
+import { AiService } from './ai.service';
 
 @Controller('ai')
 export class AiController {
@@ -46,4 +63,28 @@ export class AiController {
   }
 
   //? OPTIONAL: Add a route to stream the translation like the prosConsDiscussesStream route
+
+  @Post('text-to-audio')
+  async textToAudio(
+    @Body() textToAudioDto: TextToAudioDto,
+    @Res() response: Response,
+  ) {
+    const filePath = await this.aiService.textToAudio(textToAudioDto);
+
+    response.setHeader('Content-Type', 'audio/mp3');
+    response.status(HttpStatus.OK);
+    response.sendFile(filePath);
+  }
+
+  @Get('text-to-audio/:name')
+  async textToAudioByName(
+    @Res() response: Response,
+    @Param('name') name: string,
+  ) {
+    const filePath = await this.aiService.textToAudioByName(name);
+
+    response.setHeader('Content-Type', 'audio/mp3');
+    response.status(HttpStatus.OK);
+    response.sendFile(filePath);
+  }
 }
