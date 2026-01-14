@@ -67,7 +67,7 @@ export class AiService {
     return Promise.resolve(speechFile);
   }
 
-  async audioToText({ prompt, audioFile }: AudioToTextDto) {
-    return await audioToTextUseCase(this.openai, { prompt, audioFile });
+  async audioToText({ audioFile, prompt }: AudioToTextDto) {
+    return await audioToTextUseCase(this.openai, { audioFile, prompt });
   }
 }

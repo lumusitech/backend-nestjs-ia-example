@@ -98,7 +98,7 @@ export class AiController {
   async audioToText(
     @UploadedFile(new AudioValidationPipe())
     file: Express.Multer.File,
-    @Body('prompt') audioToTextPromptDto: AudioToTextPromptDto,
+    @Body() audioToTextPromptDto: AudioToTextPromptDto,
   ) {
     return await this.aiService.audioToText({
       prompt: audioToTextPromptDto.prompt,
