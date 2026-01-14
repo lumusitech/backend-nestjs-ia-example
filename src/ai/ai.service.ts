@@ -19,7 +19,9 @@ import {
   prosConsDiscussesUseCase,
   textToAudioUseCase,
   translateUseCase,
+  audioToTextUseCase,
 } from './use-cases';
+import { AudioToTextDto } from './dtos/audio-to-text.dto';
 
 @Injectable()
 export class AiService {
@@ -63,5 +65,9 @@ export class AiService {
       throw new NotFoundException(`Audio with name ${name} not found`);
 
     return Promise.resolve(speechFile);
+  }
+
+  async audioToText({ prompt, audioFile }: AudioToTextDto) {
+    return await audioToTextUseCase(this.openai, { prompt, audioFile });
   }
 }

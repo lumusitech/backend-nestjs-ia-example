@@ -8,6 +8,7 @@ import {
   Param,
   Post,
   Res,
+  UploadedFile,
 } from '@nestjs/common';
 
 import {
@@ -15,11 +16,15 @@ import {
   ProsConsDiscussesDto,
   TranslateDto,
   TextToAudioDto,
+  AudioToTextPromptDto,
 } from './dtos';
 
 import { OrthographyResponse } from './use-cases';
 
 import { AiService } from './ai.service';
+
+import { UploadAudioFile } from 'src/common/decorators';
+import { AudioValidationPipe } from 'src/common/pipes';
 
 @Controller('ai')
 export class AiController {
@@ -86,5 +91,18 @@ export class AiController {
     response.setHeader('Content-Type', 'audio/mp3');
     response.status(HttpStatus.OK);
     response.sendFile(filePath);
+  }
+
+  @Post('audio-to-text')
+  @UploadAudioFile('file')
+  async audioToText(
+    @UploadedFile(new AudioValidationPipe())
+    file: Express.Multer.File,
+    @Body('prompt') audioToTextPromptDto: AudioToTextPromptDto,
+  ) {
+    return await this.aiService.audioToText({
+      prompt: audioToTextPromptDto.prompt,
+      audioFile: file,
+    });
   }
 }
