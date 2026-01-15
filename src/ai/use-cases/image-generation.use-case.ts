@@ -2,6 +2,7 @@ import { downloadBase64ImageAsPng, downloadImageAsPng } from 'src/helpers';
 import * as fs from 'fs';
 import { InternalServerErrorException } from '@nestjs/common';
 import OpenAI from 'openai';
+import { toFile } from 'openai';
 
 interface Options {
   prompt: string;
@@ -39,19 +40,33 @@ export const imageGenerationUseCase = async (
     };
   }
 
+  //
   //? originalImage: // localhost:3000/ai/image-generation/1768429792892.png
   const pngImagePath = await downloadImageAsPng(originalImage, true);
   //? maskImage: // Base64 encoded image
   const maskPath = await downloadBase64ImageAsPng(maskImage, true);
 
+  //! Ensure the file MIME type is image/png using toFile openai method
+  const imageFile = await toFile(
+    fs.createReadStream(pngImagePath),
+    'image.png',
+    {
+      type: 'image/png',
+    },
+  );
+
+  //! Ensure the file MIME type is image/png using toFile openai method
+  const maskFile = await toFile(fs.createReadStream(maskPath), 'mask.png', {
+    type: 'image/png',
+  });
+
   const response = await openai.images.edit({
-    model: 'dall-e-3',
+    model: 'dall-e-2',
     prompt,
-    image: fs.createReadStream(pngImagePath),
-    mask: fs.createReadStream(maskPath),
+    image: imageFile,
+    mask: maskFile,
     n: 1,
     size: '1024x1024',
-    quality: 'standard',
     response_format: 'url',
   });
 
