@@ -17,6 +17,8 @@ import {
   TranslateDto,
   TextToAudioDto,
   AudioToTextPromptDto,
+  ImageGenerationDto,
+  ImageVariationDto,
 } from './dtos';
 
 import { OrthographyResponse } from './use-cases';
@@ -104,5 +106,27 @@ export class AiController {
       prompt: audioToTextPromptDto.prompt,
       audioFile: file,
     });
+  }
+
+  @Post('image-generation')
+  async imageGeneration(@Body() imageGenerationDto: ImageGenerationDto) {
+    return await this.aiService.imageGeneration(imageGenerationDto);
+  }
+
+  @Get('image-generation/:fileName')
+  getGeneratedImage(
+    @Param('fileName') fileName: string,
+    @Res() response: Response,
+  ) {
+    const filePath = this.aiService.getGeneratedImage(fileName);
+
+    response.setHeader('Content-Type', 'image/png');
+    response.status(HttpStatus.OK);
+    response.sendFile(filePath);
+  }
+
+  @Post('image-variation')
+  async imageVariation(@Body() imageVariationDto: ImageVariationDto) {
+    return await this.aiService.generateImageVariation(imageVariationDto);
   }
 }
