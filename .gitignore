@@ -61,3 +61,10 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # exclude generated content
 /generated/*
 !/generated/.gitkeep
+
+# AI Context & Storage
+/ai-context/*.pdf
+/generated/conversations/*.json
+# exclude conversation and context folder
+!/ai-context/.gitkeep
+!/generated/conversations/.gitkeep
