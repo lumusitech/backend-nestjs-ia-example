@@ -151,7 +151,28 @@ Generates an image based on a text prompt using DALL-E.
   }
   ```
 - **Response**: JSON with the URL to the generated image.
-- **Get Image**: `GET /ai/image-generation/:filename` allows retrieving the generated file locally.
+-   **Get Image**: `GET /ai/image-generation/:filename` returns the image file directly (`image/png`), allowing it to be viewed in browsers or tools like Postman.
+
+### Image Variation
+Generates a variation of an existing image using DALL-E.
+
+-   **Endpoint**: `POST /ai/image-variation`
+-   **Body**:
+    ```json
+    {
+      "baseImage": "http://localhost:3000/ai/image-generation/1768429792892.png"
+    }
+    ```
+-   **Response**: JSON with the URL to the generated variation.
+
+### Image to Text
+Extracts information or describes an uploaded image using GPT-4 Vision.
+
+-   **Endpoint**: `POST /ai/extract-text-from-image`
+-   **Body**: `multipart/form-data`
+    -   `file`: (The image file)
+    -   `prompt`: (Optional, question about the image, default: "¿Qué logras ver en la imagen?")
+-   **Response**: JSON with the description/answer.
 
 ### Sam Assistant (Chatbot)
 
