@@ -2,7 +2,6 @@ import * as fs from 'fs';
 import * as fsPromises from 'fs/promises';
 import * as path from 'path';
 import OpenAI from 'openai';
-import { NotFoundException } from '@nestjs/common';
 
 interface Options {
   conversationId: string;
@@ -17,8 +16,7 @@ export const getConversationUseCase = async (options: Options) => {
   );
   const filePath = path.join(storagePath, `${conversationId}.json`);
 
-  if (!fs.existsSync(filePath))
-    throw new NotFoundException(`Conversation ${conversationId} not found`);
+  if (!fs.existsSync(filePath)) return [];
 
   const fileContent = await fsPromises.readFile(filePath, 'utf-8');
 

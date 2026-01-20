@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { AskDto } from './dtos';
-import { conversationUseCase } from './use-cases';
+import { AskDto, GetConversationDto } from './dtos';
+import { conversationUseCase, getConversationUseCase } from './use-cases';
 import OpenAI from 'openai';
 
 @Injectable()
@@ -11,5 +11,9 @@ export class SamAssistantService {
 
   async ask({ prompt, conversationId }: AskDto) {
     return conversationUseCase(this.openai, { prompt, conversationId });
+  }
+
+  async getConversation({ conversationId }: GetConversationDto) {
+    return getConversationUseCase({ conversationId });
   }
 }
