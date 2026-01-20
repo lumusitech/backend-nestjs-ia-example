@@ -24,6 +24,7 @@ import {
   audioToTextUseCase,
   imageGenerationUseCase,
   imageVariationUseCase,
+  imageToTextUseCase,
 } from './use-cases';
 import { AudioToTextDto } from './dtos/audio-to-text.dto';
 
@@ -94,5 +95,9 @@ export class AiService {
     return await imageVariationUseCase(this.openai, {
       baseImage,
     });
+  }
+
+  async imageToText(imageFile: Express.Multer.File, prompt: string) {
+    return await imageToTextUseCase(this.openai, { imageFile, prompt });
   }
 }

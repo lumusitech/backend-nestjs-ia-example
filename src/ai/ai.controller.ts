@@ -25,8 +25,8 @@ import { OrthographyResponse } from './use-cases';
 
 import { AiService } from './ai.service';
 
-import { UploadAudioFile } from 'src/common/decorators';
-import { AudioValidationPipe } from 'src/common/pipes';
+import { UploadAudioFile, UseImageUpload } from 'src/common/decorators';
+import { AudioValidationPipe, ImageValidationPipe } from 'src/common/pipes';
 
 @Controller('ai')
 export class AiController {
@@ -128,5 +128,17 @@ export class AiController {
   @Post('image-variation')
   async imageVariation(@Body() imageVariationDto: ImageVariationDto) {
     return await this.aiService.generateImageVariation(imageVariationDto);
+  }
+
+  @Post('extract-text-from-image')
+  //? configure interceptor and store image in generated/uploads folder
+  @UseImageUpload('file')
+  async extractTextFromImage(
+    //? validate image file size and type
+    @UploadedFile(ImageValidationPipe) file: Express.Multer.File,
+
+    @Body('prompt') prompt: string,
+  ) {
+    return await this.aiService.imageToText(file, prompt);
   }
 }
