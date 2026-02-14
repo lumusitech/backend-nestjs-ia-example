@@ -2,6 +2,8 @@
 
 This project is a NestJS backend application that integrates with OpenAI to provide various AI-powered features such as text analysis, audio processing, image generation, and a context-aware chatbot.
 
+***Warning:*** In this course, the suffixes useCase were used to refer to helper or util functions, not as use cases specific to hexagonal or clean architecture.
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
